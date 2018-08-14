@@ -112,12 +112,7 @@ RUN cd /tmp && \
     mv /tmp/incubator-toree/dist/toree /opt/toree-kernel && \
     chmod +x /opt/toree-kernel && \
     rm -rf /tmp/incubator-toree && \
-    wget http://repo.bigstepcloud.com/bigstep/datalab/toree-assembly-0.3.0.dev1-incubating-SNAPSHOT.jar -O /opt/toree-kernel/lib/toree-assembly-0.3.0.dev1-incubating-SNAPSHOT.jar && \
-    cd /opt/ && \
-    wget http://repo.uk.bigstepcloud.com/bigstep/datalab/datalake-1.5-SNAPSHOT-bin.tar.gz && \
-    tar xzvf datalake-1.5-SNAPSHOT-bin.tar.gz && \
-    rm -rf datalake-1.5-SNAPSHOT-bin.tar.gz && \
-    export PATH=$PATH:/opt/datalake-1.5-SNAPSHOT/bin
+    wget http://repo.bigstepcloud.com/bigstep/datalab/toree-assembly-0.3.0.dev1-incubating-SNAPSHOT.jar -O /opt/toree-kernel/lib/toree-assembly-0.3.0.dev1-incubating-SNAPSHOT.jar
     
 #        Jupyter 
 EXPOSE   8888     
