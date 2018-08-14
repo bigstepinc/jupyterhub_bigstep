@@ -10,7 +10,11 @@ ENV JAVA_HOME /opt/jdk1.8.0_181
 ENV PATH $PATH:/opt/jdk1.8.0_181/bin:/opt/jdk1.8.0_181/jre/bin:/etc/alternatives:/var/lib/dpkg/alternatives
 
 RUN apt-get -qq update -y
-RUN apt-get install -y unzip wget curl tar bzip2 software-properties-common git
+
+#Install yarn and NodeJS
+RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
+RUN apt-get install -y unzip wget curl tar bzip2 software-properties-common git nodejs vim
+RUN npm install yarn -g
 
 RUN cd /opt && wget --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/8u181-b13/96a7b8442fe848ef90c96a2fad6ed6d1/jdk-8u181-linux-x64.tar.gz" &&\
    tar xzf jdk-8u181-linux-x64.tar.gz && rm -rf jdk-8u181-linux-x64.tar.gz
@@ -43,7 +47,7 @@ RUN export PATH=$PATH:$CONDA_DIR/bin
 
 # Install Jupyter notebook 
 RUN $CONDA_DIR/bin/conda install --yes \
-    'notebook' && \
+    'notebook>=5.6.0' && \
     $CONDA_DIR/bin/conda clean -yt
     
 RUN $CONDA_DIR/bin/jupyter notebook  --generate-config --allow-root
@@ -113,6 +117,19 @@ RUN cd /tmp && \
     chmod +x /opt/toree-kernel && \
     rm -rf /tmp/incubator-toree && \
     wget http://repo.bigstepcloud.com/bigstep/datalab/toree-assembly-0.3.0.dev1-incubating-SNAPSHOT.jar -O /opt/toree-kernel/lib/toree-assembly-0.3.0.dev1-incubating-SNAPSHOT.jar
+
+#Install SparkMonitor extension
+RUN git clone https://github.com/krishnan-r/sparkmonitor && \
+   cd sparkmonitor/extension/ && \
+   yarn install && \
+   yarn run webpack && \
+   cd scalalistener/ && \
+   sbt package && \
+   pip install -e . && \
+   jupyter nbextension install sparkmonitor --py --user --symlink && \
+   jupyter nbextension enable sparkmonitor --py --user  && \
+   jupyter serverextension enable --py --user sparkmonitor && \
+   ipython profile create && echo "c.InteractiveShellApp.extensions.append('sparkmonitor.kernelextension')" >>  $(ipython profile locate default)/ipython_kernel_config.py 
     
 #        Jupyter 
 EXPOSE   8888     
