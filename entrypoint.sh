@@ -105,14 +105,6 @@ if [ "$MODE" == "jupyter" ]; then
 	export SPARKMONITOR_UI_HOST=$SPARK_PUBLIC_DNS
 	export SPARKMONITOR_UI_PORT=$SPARK_UI_PORT
 
-	pip install https://github.com/krishnan-r/sparkmonitor/releases/download/v0.0.1/sparkmonitor.tar.gz #Use latest version as in github releases
-
-	jupyter nbextension install sparkmonitor --py --user --symlink 
-	jupyter nbextension enable sparkmonitor --py --user            
-	jupyter serverextension enable --py --user sparkmonitor
-
-	#ipython profile create && echo "c.InteractiveShellApp.extensions.append('sparkmonitor')" >>  $(ipython profile locate default)/ipython_kernel_config.py
-	ipython profile create && echo "c.InteractiveShellApp.extensions.append('sparkmonitor.kernelextension')" >> $(ipython profile locate default)/ipython_kernel_config.py
 fi
 
 
