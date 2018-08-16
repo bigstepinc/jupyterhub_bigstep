@@ -31,7 +31,7 @@ RUN curl -L -C - -b "oraclelicense=accept-securebackup-cookie" -O http://downloa
 RUN cp UnlimitedJCEPolicyJDK8/US_export_policy.jar /opt/jdk1.8.0_181/jre/lib/security/ && cp UnlimitedJCEPolicyJDK8/local_policy.jar /opt/jdk1.8.0_181/jre/lib/security/
 RUN rm -rf UnlimitedJCEPolicyJDK8
 
-ENV R_LIBS_USER /opt/conda/envs/ir/lib/R/library:/opt/conda/lib/R/library
+#ENV R_LIBS_USER /opt/conda/envs/ir/lib/R/library:/opt/conda/lib/R/library
 
 # Create additional files in the DataLake
 RUN mkdir -p /user && mkdir -p /user/notebooks && mkdir -p /user/datasets && chmod 777 /entrypoint.sh
@@ -87,9 +87,9 @@ RUN /root/jq-linux64 --arg v "$CONDA_DIR/envs/python3/bin/python"         '.["en
     mv /tmp/kernel.json /opt/conda/share/jupyter/kernels/python3/kernel.json
 
 #Install R kernel and set up environment
-RUN $CONDA_DIR/bin/conda config --add channels r
-RUN $CONDA_DIR/bin/conda install --yes -c r r-essentials r-base r-irkernel r-irdisplay r-ggplot2 r-repr r-rcurl
-RUN $CONDA_DIR/bin/conda create --yes  -n ir -c r r-essentials r-base r-irkernel r-irdisplay r-ggplot2 r-repr r-rcurl
+#RUN $CONDA_DIR/bin/conda config --add channels r
+#RUN $CONDA_DIR/bin/conda install --yes -c r r-essentials r-base r-irkernel r-irdisplay r-ggplot2 r-repr r-rcurl
+#RUN $CONDA_DIR/bin/conda create --yes  -n ir -c r r-essentials r-base r-irkernel r-irdisplay r-ggplot2 r-repr r-rcurl
 
 #Configure Scala kernel
 RUN mkdir -p /opt/conda/share/jupyter/kernels/scala
@@ -128,11 +128,11 @@ RUN git clone https://github.com/krishnan-r/sparkmonitor && \
    cd scalalistener/ && \
    sbt package && \
    cd .. && \
-   pip install -e . && \
-   jupyter nbextension install sparkmonitor --py --user --symlink && \
-   jupyter nbextension enable sparkmonitor --py --user  && \
-   jupyter serverextension enable --py --user sparkmonitor && \
-   ipython profile create && echo "c.InteractiveShellApp.extensions.append('sparkmonitor.kernelextension')" >>  $(ipython profile locate default)/ipython_kernel_config.py 
+#   pip install -e . && \
+#   jupyter nbextension install sparkmonitor --py --user --symlink && \
+#   jupyter nbextension enable sparkmonitor --py --user  && \
+#   jupyter serverextension enable --py --user sparkmonitor && \
+#   ipython profile create && echo "c.InteractiveShellApp.extensions.append('sparkmonitor.kernelextension')" >>  $(ipython profile locate default)/ipython_kernel_config.py 
     
 #        Jupyter 
 EXPOSE   8888     
