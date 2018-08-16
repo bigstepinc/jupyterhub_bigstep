@@ -127,8 +127,8 @@ RUN git clone https://github.com/krishnan-r/sparkmonitor && \
    yarn run webpack && \
    cd scalalistener/ && \
    sbt package && \
-   cd .. && \
-#   pip install -e . && \
+   cd .. 
+#   pip install -e . 
 #   jupyter nbextension install sparkmonitor --py --user --symlink && \
 #   jupyter nbextension enable sparkmonitor --py --user  && \
 #   jupyter serverextension enable --py --user sparkmonitor && \
