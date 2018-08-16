@@ -6,7 +6,7 @@ from IPython.lib import passwd
 
 def createPassword (var):
 	p = passwd(var)
-        print ("%s" % (str(p)))
+	print ("%s" % (str(p)))
 	return p
 
 if __name__ in '__main__':
