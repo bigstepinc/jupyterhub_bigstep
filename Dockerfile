@@ -9,11 +9,11 @@ ADD handlers.py /opt/
 ENV JAVA_HOME /opt/jdk1.8.0_181
 ENV PATH $PATH:/opt/jdk1.8.0_181/bin:/opt/jdk1.8.0_181/jre/bin:/etc/alternatives:/var/lib/dpkg/alternatives
 
-RUN apt-get -qq update -y
+RUN apt-get update -y
 
 #Install yarn and NodeJS
-RUN apt-get install -y unzip wget curl tar bzip2 software-properties-common git vim
-RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -  
+RUN apt-get install -y unzip wget curl tar bzip2 software-properties-common git vim 
+RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
 RUN apt-get install -y nodejs
 RUN npm install yarn -g
 
@@ -26,7 +26,8 @@ RUN echo 'export JAVA_HOME="/opt/jdk1.8.0_181"' >> ~/.bashrc && \
     
 #Add Java Security Policies
 RUN curl -L -C - -b "oraclelicense=accept-securebackup-cookie" -O http://download.oracle.com/otn-pub/java/jce/8/jce_policy-8.zip && \
-   unzip jce_policy-8.zip
+   unzip jce_policy-8.zip && \
+   rm jce_policy-8.zip
 RUN cp UnlimitedJCEPolicyJDK8/US_export_policy.jar /opt/jdk1.8.0_181/jre/lib/security/ && cp UnlimitedJCEPolicyJDK8/local_policy.jar /opt/jdk1.8.0_181/jre/lib/security/
 RUN rm -rf UnlimitedJCEPolicyJDK8
 
@@ -126,6 +127,7 @@ RUN git clone https://github.com/krishnan-r/sparkmonitor && \
    yarn run webpack && \
    cd scalalistener/ && \
    sbt package && \
+   cd .. && \
    pip install -e . && \
    jupyter nbextension install sparkmonitor --py --user --symlink && \
    jupyter nbextension enable sparkmonitor --py --user  && \
