@@ -104,7 +104,6 @@ if [ "$MODE" == "jupyter" ]; then
 	#Install sparkmonitor extension
 	export SPARKMONITOR_UI_HOST=$SPARK_PUBLIC_DNS
 	export SPARKMONITOR_UI_PORT=$SPARK_UI_PORT
-
 fi
 
 
