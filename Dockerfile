@@ -119,12 +119,13 @@ RUN wget http://repo.uk.bigstepcloud.com/bigstep/datalab/datalab_getting_started
  #  wget http://repo.bigstepcloud.com/bigstep/datalab/DataLab%2BGetting%2BStarted%2Bin%2BR%20%281%29.ipynb -O /user/notebooks/DataLab\ Getting\ Started\ in\ R.ipynb && \
    wget http://repo.bigstepcloud.com/bigstep/datalab/DataLab%2BGetting%2BStarted%2Bin%2BPython%20%283%29.ipynb -O /user/notebooks/DataLab\ Getting\ Started\ in\ Python.ipynb && \
    wget http://repo.bigstepcloud.com/bigstep/datalab/logo.png -O logo.png && \
-   cp logo.png $CONDA_DIR/envs/python3/doc/global/template/images/logo.png && \
-   cp logo.png $CONDA_DIR/envs/python3/lib/python3.5/site-packages/notebook/static/base/images/logo.png && \
+ #  cp logo.png $CONDA_DIR/envs/python3/doc/global/template/images/logo.png && \
+ #  cp logo.png $CONDA_DIR/envs/python3/lib/python3.5/site-packages/notebook/static/base/images/logo.png && \
    cp logo.png $CONDA_DIR/doc/global/template/images/logo.png && \
    rm -rf logo.png 
    
 #RUN apt-get install -y libcairo2-dev  python3-cairo-dev
+RUN apt-get install -y make
 
 RUN cd /tmp && \
     wget "http://repo.bigstepcloud.com/bigstep/datalab/sbt-0.13.11.tgz" -O /tmp/sbt-0.13.11.tgz && \
