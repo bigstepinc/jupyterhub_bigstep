@@ -140,6 +140,16 @@ RUN cd /tmp && \
     rm -rf /tmp/incubator-toree && \
     wget http://repo.bigstepcloud.com/bigstep/datalab/toree-assembly-0.3.0.dev1-incubating-SNAPSHOT.jar -O /opt/toree-kernel/lib/toree-assembly-0.3.0.dev1-incubating-SNAPSHOT.jar
 
+RUN cd /opt && \
+    wget http://repo.uk.bigstepcloud.com/bigstep/bdl/bigstepdatalake-1.0-SNAPSHOT-bin.tar.gz && \
+    tar -xzvf bigstepdatalake-1.0-SNAPSHOT-bin.tar.gz && \
+    rm -rf /opt/bigstepdatalake-1.0-SNAPSHOT-bin.tar.gz && \
+    export PATH=$PATH:/opt/bigstepdatalake-1.0-SNAPSHOT/bin
+    
+RUN wget http://repo.uk.bigstepcloud.com/bigstep/datalab/DataLab%20Getting%20Started%20in%20Scala%202018.ipynb -O /user/notebooks/DataLab\ Getting\ Started\ in\ Scala.ipynb && \
+    wget http://repo.uk.bigstepcloud.com/bigstep/datalab/DataLab%20Getting%20Started%20in%20Python%202018.ipynb -O /user/notebooks/DataLab\ Getting\ Started\ in\ Python.ipynb
+
+
 #Install SparkMonitor extension
 #RUN git clone https://github.com/krishnan-r/sparkmonitor && \
 #   cd sparkmonitor/extension/ && \
