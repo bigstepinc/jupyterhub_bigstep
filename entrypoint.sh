@@ -29,7 +29,7 @@ if [ "$MODE" == "jupyter" ]; then
 	sed "s/<i class=\"fa fa-home\"><\/i>/\/user/" /opt/conda/envs/python3/lib/python3.5/site-packages/notebook/templates/tree.html >> /opt/conda/envs/python3/lib/python3.5/site-packages/notebook/templates/tree.html.tmp
 	mv /opt/conda/envs/python3/lib/python3.5/site-packages/notebook/templates/tree.html.tmp /opt/conda/envs/python3/lib/python3.5/site-packages/notebook/templates/tree.html
 	
-	export NOTEBOOK_PASSWORD=$(cat $NOTEBOOK_SECRETS_PATH/NOTEBOOK_PASSWORD)
+	# export NOTEBOOK_PASSWORD=$(cat $NOTEBOOK_SECRETS_PATH/NOTEBOOK_PASSWORD)
 
 	pass=$(python /opt/password.py  $NOTEBOOK_PASSWORD)
 	sed "s/#c.NotebookApp.password = ''/c.NotebookApp.password = \'$pass\'/" /root/.jupyter/jupyter_notebook_config.py >> /root/.jupyter/jupyter_notebook_config.py.tmp && \
