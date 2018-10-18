@@ -5,6 +5,16 @@ export PATH="$PATH:/opt/jdk1.8.0_181/bin:/opt/jdk1.8.0_181/jre/bin:/opt/hadoop/b
 export JAVA_CLASSPATH="$JAVA_HOME/jre/lib/"
 export JAVA_OPTS="-Dsun.security.krb5.debug=true -XX:MetaspaceSize=128M -XX:MaxMetaspaceSize=256M"
 
+apt-get install -y openssl
+
+# Generate self signed certificate
+openssl req -x509 -nodes  -days 365 -newkey rsa:1024 -keyout /tmp/jupyterhub.key -out /tmp/jupyterhub.crt
+
+# Generate JupyterHub config
+jupyterhub --generate-config
+
+
+
 if [ "$SPARK_UI_PORT" == "" ]; then
   SPARK_UI_PORT=4040
 fi
