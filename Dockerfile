@@ -72,7 +72,7 @@ RUN $CONDA_DIR/bin/conda install --yes \
     $CONDA_DIR/bin/conda clean -yt
     
 # Install JupyterHub
-RUN $CONDA_DIR/bin/conda install -c conda-forge jupyterhub && \
+RUN $CONDA_DIR/bin/conda install -y -c conda-forge jupyterhub && \
     $CONDA_DIR/bin/conda clean -yt
     
 RUN $CONDA_DIR/bin/jupyter notebook  --generate-config --allow-root
