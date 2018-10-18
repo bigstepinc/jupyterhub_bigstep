@@ -71,6 +71,10 @@ RUN $CONDA_DIR/bin/conda install --yes \
     'notebook>=5.6.0' && \
     $CONDA_DIR/bin/conda clean -yt
     
+# Install JupyterHub
+RUN $CONDA_DIR/bin/conda install -c conda-forge jupyterhub && \
+    $CONDA_DIR/bin/conda clean -yt
+    
 RUN $CONDA_DIR/bin/jupyter notebook  --generate-config --allow-root
 
 RUN $CONDA_DIR/bin/conda install -c conda-forge nb_conda
@@ -150,20 +154,6 @@ RUN wget http://repo.uk.bigstepcloud.com/bigstep/datalab/DataLab%20Getting%20Sta
     wget http://repo.uk.bigstepcloud.com/bigstep/datalab/DataLab%20Getting%20Started%20in%20Python%202018.ipynb -O /user/notebooks/DataLab\ Getting\ Started\ in\ Python.ipynb
 
 
-#Install SparkMonitor extension
-#RUN git clone https://github.com/krishnan-r/sparkmonitor && \
-#   cd sparkmonitor/extension/ && \
-#   yarn install && \
-#   yarn run webpack && \
-#   cd scalalistener/ && \
-#   sbt package && \
-#   cd .. 
-#   pip install -e . 
-#   jupyter nbextension install sparkmonitor --py --user --symlink && \
-#   jupyter nbextension enable sparkmonitor --py --user  && \
-#   jupyter serverextension enable --py --user sparkmonitor && \
-#   ipython profile create && echo "c.InteractiveShellApp.extensions.append('sparkmonitor.kernelextension')" >>  $(ipython profile locate default)/ipython_kernel_config.py 
-    
 #        Jupyter 
 EXPOSE   8888     
 
