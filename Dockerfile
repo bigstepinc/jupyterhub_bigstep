@@ -1,10 +1,6 @@
 FROM ubuntu:16.04
 
 ADD entrypoint.sh /
-ADD password.py /opt/
-ADD env.sh /opt/
-ADD handlers.py /opt/
-ADD openssl.conf /opt/
 
 # Install Java 8
 ENV JAVA_HOME /opt/jdk1.8.0_181
@@ -54,7 +50,7 @@ ENV PATH $PATH:/$SPARK_HOME/bin/
 #ENV R_LIBS_USER /opt/conda/envs/ir/lib/R/library:/opt/conda/lib/R/library
 
 # Create additional files in the DataLake
-RUN mkdir -p /user && mkdir -p /user/notebooks && mkdir -p /user/datasets && chmod 777 /entrypoint.sh
+RUN chmod 777 /entrypoint.sh
 
 # Setup Miniconda
 ENV CONDA_DIR /opt/conda
@@ -76,11 +72,9 @@ RUN $CONDA_DIR/bin/conda install --yes \
 RUN $CONDA_DIR/bin/conda install -y -c conda-forge jupyterhub && \
     $CONDA_DIR/bin/conda clean -yt
     
-RUN $CONDA_DIR/bin/jupyter notebook  --generate-config --allow-root
-
-RUN $CONDA_DIR/bin/conda install -c conda-forge nb_conda
-RUN $CONDA_DIR/bin/python -m nb_conda_kernels.install --disable --prefix=$CONDA_DIR && \
-    $CONDA_DIR/bin/conda clean -yt
+#RUN $CONDA_DIR/bin/conda install -c conda-forge nb_conda
+#RUN $CONDA_DIR/bin/python -m nb_conda_kernels.install --disable --prefix=$CONDA_DIR && \
+#    $CONDA_DIR/bin/conda clean -yt
 
 #Install Scala Spark kernel
 ENV SBT_VERSION 0.13.11
@@ -119,17 +113,6 @@ RUN $CONDA_DIR/bin/conda config --set auto_update_conda False
 RUN mkdir -p /opt/conda/share/jupyter/kernels/scala
 COPY kernel.json /opt/conda/share/jupyter/kernels/scala/
 
-#Add Getting Started Notebooks and change Jupyter logo and download additional libraries
-RUN wget http://repo.uk.bigstepcloud.com/bigstep/datalab/datalab_getting_started_in_scala__4.ipynb -O /user/notebooks/DataLab\ Getting\ Started\ in\ Scala.ipynb && \
- #  wget http://repo.bigstepcloud.com/bigstep/datalab/DataLab%2BGetting%2BStarted%2Bin%2BR%20%281%29.ipynb -O /user/notebooks/DataLab\ Getting\ Started\ in\ R.ipynb && \
-   wget http://repo.bigstepcloud.com/bigstep/datalab/DataLab%2BGetting%2BStarted%2Bin%2BPython%20%283%29.ipynb -O /user/notebooks/DataLab\ Getting\ Started\ in\ Python.ipynb && \
-   wget http://repo.bigstepcloud.com/bigstep/datalab/logo.png -O logo.png && \
- #  cp logo.png $CONDA_DIR/envs/python3/doc/global/template/images/logo.png && \
- #  cp logo.png $CONDA_DIR/envs/python3/lib/python3.5/site-packages/notebook/static/base/images/logo.png && \
-   cp logo.png $CONDA_DIR/doc/global/template/images/logo.png && \
-   rm -rf logo.png 
-   
-#RUN apt-get install -y libcairo2-dev  python3-cairo-dev
 RUN apt-get install -y make
 
 RUN cd /tmp && \
@@ -149,11 +132,8 @@ RUN cd /opt && \
     wget http://repo.uk.bigstepcloud.com/bigstep/bdl/bigstepdatalake-1.0-SNAPSHOT-bin.tar.gz && \
     tar -xzvf bigstepdatalake-1.0-SNAPSHOT-bin.tar.gz && \
     rm -rf /opt/bigstepdatalake-1.0-SNAPSHOT-bin.tar.gz && \
-    export PATH=$PATH:/opt/bigstepdatalake-1.0-SNAPSHOT/bin
+    export PATH=/opt/bigstepdatalake-1.0-SNAPSHOT/bin:$PATH
     
-RUN wget http://repo.uk.bigstepcloud.com/bigstep/datalab/DataLab%20Getting%20Started%20in%20Scala%202018.ipynb -O /user/notebooks/DataLab\ Getting\ Started\ in\ Scala.ipynb && \
-    wget http://repo.uk.bigstepcloud.com/bigstep/datalab/DataLab%20Getting%20Started%20in%20Python%202018.ipynb -O /user/notebooks/DataLab\ Getting\ Started\ in\ Python.ipynb
-
 RUN pip install -y py4j && \
     pip install -y pyspark
 
