@@ -126,8 +126,8 @@ RUN cd /opt && \
     rm -rf /opt/bigstepdatalake-1.0-SNAPSHOT-bin.tar.gz && \
     export PATH=/opt/bigstepdatalake-1.0-SNAPSHOT/bin:$PATH
     
-RUN pip install -y py4j && \
-    pip install -y pyspark
+RUN pip install py4j && \
+    pip install pyspark
 
 #        Jupyter 
 EXPOSE   8000     
