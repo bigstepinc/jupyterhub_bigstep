@@ -4,6 +4,7 @@ ADD entrypoint.sh /
 ADD password.py /opt/
 ADD env.sh /opt/
 ADD handlers.py /opt/
+ADD openssl.conf /opt/
 
 # Install Java 8
 ENV JAVA_HOME /opt/jdk1.8.0_181
@@ -153,8 +154,10 @@ RUN cd /opt && \
 RUN wget http://repo.uk.bigstepcloud.com/bigstep/datalab/DataLab%20Getting%20Started%20in%20Scala%202018.ipynb -O /user/notebooks/DataLab\ Getting\ Started\ in\ Scala.ipynb && \
     wget http://repo.uk.bigstepcloud.com/bigstep/datalab/DataLab%20Getting%20Started%20in%20Python%202018.ipynb -O /user/notebooks/DataLab\ Getting\ Started\ in\ Python.ipynb
 
+RUN pip install -y py4j && \
+    pip install -y pyspark
 
 #        Jupyter 
-EXPOSE   8888     
+EXPOSE   8000     
 
 ENTRYPOINT ["/entrypoint.sh"]
