@@ -1,6 +1,7 @@
 FROM ubuntu:16.04
 
 ADD entrypoint.sh /
+ADD openssl.conf /opt/
 
 #Install yarn and NodeJS
 RUN apt-get -qq update -y
