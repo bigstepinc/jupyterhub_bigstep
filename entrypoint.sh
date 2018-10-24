@@ -8,7 +8,7 @@ export JAVA_OPTS="-Dsun.security.krb5.debug=true -XX:MetaspaceSize=128M -XX:MaxM
 apt-get install -y openssl
 
 # Generate self signed certificate
-openssl req -x509 -nodes  -days 365 -newkey rsa:1024 -keyout /tmp/jupyterhub.key -out /tmp/jupyterhub.crt
+openssl req -x509 -nodes  -days 365 -newkey rsa:1024 -keyout /tmp/jupyterhub.key -out /tmp/jupyterhub.crt --config /opt/openssl.conf
 
 # Give RW rights
 chmod 777 -R $NOTEBOOK_DIR
@@ -36,6 +36,12 @@ if [ "$NOTEBOOK_DIR" != "" ]; then
 
 	sed "s/#c.Spawner.notebook_dir = ''/#c.Spawner.notebook_dir = \'$ESCAPED_NOTEBOOK_DIR\'/" /jupyterhub_config.py >> /jupyterhub_config.py.tmp && \
 	mv /jupyterhub_config.py.tmp /jupyterhub_config.py
+fi
+
+# Add admin user with admin password
+adduser --quiet --disabled-password --shell /bin/bash --home $NOTEBOOK_DIR/admin --gecos "User" admin
+# set password
+echo "admin:ADMIN_PASSWORD" | chpasswd
 fi
 
 if [ "$USER1" != "" ]; then
