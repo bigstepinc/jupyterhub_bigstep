@@ -130,7 +130,7 @@ RUN cd /opt && \
 RUN pip install py4j && \
     pip install pyspark
 
-#        Jupyter 
-EXPOSE   8000     
+#        JupyterHub 
+EXPOSE   8000     4040 4041 4042 4043 4044 4045  4046 4047 4048 4049
 
 ENTRYPOINT ["/entrypoint.sh"]
