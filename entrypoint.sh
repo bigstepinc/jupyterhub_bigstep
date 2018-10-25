@@ -12,6 +12,7 @@ openssl req -x509 -nodes  -days 365 -newkey rsa:1024 -keyout /tmp/jupyterhub.key
 
 # Give RW rights
 chmod 777 -R $NOTEBOOK_DIR
+chmod 777 -R /bigstep/shared_drives/
 # Generate JupyterHub config
 jupyterhub --generate-config
 
