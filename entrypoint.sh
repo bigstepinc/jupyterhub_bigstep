@@ -39,11 +39,13 @@ if [ "$NOTEBOOK_DIR" != "" ]; then
 	mv /jupyterhub_config.py.tmp /jupyterhub_config.py
 fi
 
-if [ "$ADMIN_PASSWORD" != "" ]; then
+if [ "$ADMIN_SECRET_NAME" != "" ]; then
 	# Add admin user with admin password
 	adduser --quiet --disabled-password --shell /bin/bash --home $NOTEBOOK_DIR/admin --gecos "User" admin
 	# set password
-	echo "admin:$ADMIN_PASSWORD" | chpasswd
+	export PASSWORD1=$(cat $SECRETS_PATH/$ADMIN_SECRET_NAME)
+	echo "admin:$PASSWORD1" | chpasswd
+	unset PASSWORD1
 fi
 
 
