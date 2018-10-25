@@ -34,7 +34,7 @@ mv /jupyterhub_config.py.tmp /jupyterhub_config.py
 if [ "$NOTEBOOK_DIR" != "" ]; then
 	export ESCAPED_NOTEBOOK_DIR="${NOTEBOOK_DIR//\//\\/}"
 
-	sed "s/#c.Spawner.notebook_dir = ''/#c.Spawner.notebook_dir = \'$ESCAPED_NOTEBOOK_DIR\'/" /jupyterhub_config.py >> /jupyterhub_config.py.tmp && \
+	sed "s/#c.Spawner.notebook_dir = ''/c.Spawner.notebook_dir = \'$ESCAPED_NOTEBOOK_DIR\'/" /jupyterhub_config.py >> /jupyterhub_config.py.tmp && \
 	mv /jupyterhub_config.py.tmp /jupyterhub_config.py
 fi
 
