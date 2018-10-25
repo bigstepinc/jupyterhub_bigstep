@@ -39,13 +39,11 @@ if [ "$NOTEBOOK_DIR" != "" ]; then
 	mv /jupyterhub_config.py.tmp /jupyterhub_config.py
 fi
 
-if [ "$ADMIN_SECRET_NAME" != "" ]; then
+if [ "$ADMIN_PASSWORD" != "" ]; then
 	# Add admin user with admin password
 	adduser --quiet --disabled-password --shell /bin/bash --home $NOTEBOOK_DIR/admin --gecos "User" admin
 	# set password
-	export PASSWORD1=$(cat $SECRETS_PATH/$ADMIN_SECRET_NAME)
-	echo "admin:$PASSWORD1" | chpasswd
-	unset PASSWORD1
+	echo "admin:$ADMIN_PASSWORD" | chpasswd
 fi
 
 
@@ -53,40 +51,32 @@ fi
 if [ "$USER1" != "" ]; then
 	adduser --quiet --disabled-password --shell /bin/bash --home $NOTEBOOK_DIR/$USER1 --gecos "User" $USER1
 	# set password
-	if [ "$USER1_SECRET_NAME" != "" ]; then
-		export PASSWORD1=$(cat $SECRETS_PATH/$USER1_SECRET_NAME)
-		echo "$USER1:$PASSWORD1" | chpasswd
-		unset PASSWORD1
+	if [ "$USER1_PASSWORD" != "" ]; then
+		echo "$USER1:$USER1_PASSWORD" | chpasswd
 	fi
 fi
 
 if [ "$USER2" != "" ]; then
 	adduser --quiet --disabled-password --shell /bin/bash --home $NOTEBOOK_DIR/$USER2 --gecos "User" $USER2
 	# set password
-	if [ "$USER2_SECRET_NAME" != "" ]; then
-		export PASSWORD2=$(cat $SECRETS_PATH/$USER2_SECRET_NAME)
-		echo "$USER2:$PASSWORD2" | chpasswd
-		unset PASSWORD2
+	if [ "$USER2_PASSWORD" != "" ]; then
+		echo "$USER2:$USER2_PASSWORD" | chpasswd
 	fi
 fi
 
 if [ "$USER3" != "" ]; then
 	adduser --quiet --disabled-password --shell /bin/bash --home $NOTEBOOK_DIR/$USER3 --gecos "User" $USER3
 	# set password
-	if [ "$USER3_SECRET_NAME" != "" ]; then
-		export PASSWORD3=$(cat $SECRETS_PATH/$USER3_SECRET_NAME)
-		echo "$USER3:$PASSWORD3" | chpasswd
-		unset PASSWORD3
+	if [ "$USER3_PASSWORD" != "" ]; then
+		echo "$USER3:$USER3_PASSWORD" | chpasswd
 	fi
 fi
 
 if [ "$USER4" != "" ]; then
 	adduser --quiet --disabled-password --shell /bin/bash --home $NOTEBOOK_DIR/$USER4 --gecos "User" $USER4
 	# set password
-	if [ "$USER4_SECRET_NAME" != "" ]; then
-		export PASSWORD4=$(cat $SECRETS_PATH/$USER4_SECRET_NAME)
-		echo "$USER4:$PASSWORD4" | chpasswd
-		unset PASSWORD4
+	if [ "$USER4_PASSWORD" != "" ]; then
+		echo "$USER4:$USER4_PASSWORD" | chpasswd
 	fi
 fi
 
@@ -94,20 +84,16 @@ fi
 if [ "$USER5" != "" ]; then
 	adduser --quiet --disabled-password --shell /bin/bash --home $NOTEBOOK_DIR/$USER5 --gecos "User" $USER5
 	# set password
-	if [ "$USER5_SECRET_NAME" != "" ]; then
-		export PASSWORD5=$(cat $SECRETS_PATH/$USER5_SECRET_NAME)
-		echo "$USER5:$PASSWORD5" | chpasswd
-		unset PASSWORD5
+	if [ "$USER5_PASSWORD" != "" ]; then
+		echo "$USER5:$USER5_PASSWORD" | chpasswd
 	fi
 fi
 
 if [ "$USER6" != "" ]; then
 	adduser --quiet --disabled-password --shell /bin/bash --home $NOTEBOOK_DIR/$USER6 --gecos "User" $USER6
 	# set password
-	if [ "$USER6_SECRET_NAME" != "" ]; then
-		export PASSWORD6=$(cat $SECRETS_PATH/$USER6_SECRET_NAME)
-		echo "$USER6:$PASSWORD6" | chpasswd
-		unset PASSWORD6
+	if [ "$USER6_PASSWORD" != "" ]; then
+		echo "$USER6:$USER6_PASSWORD" | chpasswd
 	fi
 fi
 
